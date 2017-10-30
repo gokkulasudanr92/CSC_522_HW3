@@ -2,6 +2,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Activation
 import numpy
 import matplotlib.pyplot as plt
+import os
 
 numpy.random.seed(7)
 
@@ -10,8 +11,8 @@ BATCH_SIZE = 1
 hidden_neurons = [2, 4, 6, 8, 10]
 training_scores = []
 validate_scores = []
+current_directory = os.getcwd()
 
-count = 1
 # Define a model
 def defineModel(hidden_neurons):
     model = Sequential()
@@ -23,12 +24,12 @@ def defineModel(hidden_neurons):
     return model
 
 # Training Dataset
-X_train = numpy.loadtxt("./hw3q5/X_train.csv", delimiter=",")
-Y_train = numpy.loadtxt("./hw3q5/Y_train.csv", delimiter=",")
+X_train = numpy.loadtxt(current_directory + "/hw3q5/X_train.csv", delimiter=",")
+Y_train = numpy.loadtxt(current_directory + "/hw3q5/Y_train.csv", delimiter=",")
 
 # Validation Dataset
-X = numpy.loadtxt("./hw3q5/X_val.csv", delimiter=",")
-Y = numpy.loadtxt("./hw3q5/Y_val.csv", delimiter=",")
+X = numpy.loadtxt(current_directory + "/hw3q5/X_val.csv", delimiter=",")
+Y = numpy.loadtxt(current_directory + "/hw3q5/Y_val.csv", delimiter=",")
 
 
 for hidden in hidden_neurons:
@@ -60,8 +61,8 @@ for i in range(len(hidden_neurons)):
         max_acc = validate_scores[i]
         max_index = i
 
-X_test = numpy.loadtxt("./hw3q5/X_test.csv", delimiter=",")
-Y_test = numpy.loadtxt("./hw3q5/Y_test.csv", delimiter=",")
+X_test = numpy.loadtxt(current_directory + "/hw3q5/X_test.csv", delimiter=",")
+Y_test = numpy.loadtxt(current_directory + "/hw3q5/Y_test.csv", delimiter=",")
 
 m = defineModel(hidden_neurons[max_index])
 m.fit(X_train, Y_train, epochs=EPOCHS, batch_size=BATCH_SIZE)
