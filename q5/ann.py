@@ -11,15 +11,14 @@ hidden_neurons = [2, 4, 6, 8, 10]
 training_scores = []
 validate_scores = []
 
+count = 1
 # Define a model
 def defineModel(hidden_neurons):
     model = Sequential()
-    # First input layer
-    model.add(Dense(1, input_dim=64, kernel_initializer='normal'))
-    # Second hidden layer with hidden neurons and relu activation
-    model.add(Dense(hidden_neurons, activation="relu", kernel_initializer='normal'))
+    # First input layer & Second hidden layer with hidden neurons and relu activation
+    model.add(Dense(hidden_neurons, input_shape=(64, ), activation="relu"))
     # One output layer with sigmoid activation
-    model.add(Dense(1, activation="sigmoid", kernel_initializer='normal'))
+    model.add(Dense(1, activation="sigmoid"))
     model.compile(optimizer="adam", loss="mse", metrics=["accuracy"])
     return model
 
@@ -44,7 +43,7 @@ for hidden in hidden_neurons:
     training_scores.append(training_score[1] * 100)
     validate_scores.append(validate_score[1] * 100)
 
-    del(model)
+    del model
 
 plt.title("Accuracy(%) vs. Hidden Neurons")
 plt.xlabel("Hidden Neurons")
