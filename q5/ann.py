@@ -15,12 +15,12 @@ validate_scores = []
 def defineModel(hidden_neurons):
     model = Sequential()
     # First input layer
-    model.add(Dense(1, input_dim=64))
-    # Second hidden layer with 2 neurons with relu activation
-    model.add(Dense(hidden_neurons, activation="relu"))
+    model.add(Dense(1, input_dim=64, kernel_initializer='normal'))
+    # Second hidden layer with hidden neurons and relu activation
+    model.add(Dense(hidden_neurons, activation="relu", kernel_initializer='normal'))
     # One output layer with sigmoid activation
-    model.add(Dense(1, activation="sigmoid"))
-    model.compile(optimizer="rmsprop", loss="mse", metrics=["accuracy"])
+    model.add(Dense(1, activation="sigmoid", kernel_initializer='normal'))
+    model.compile(optimizer="adam", loss="mse", metrics=["accuracy"])
     return model
 
 # Training Dataset
@@ -67,5 +67,6 @@ Y_test = numpy.loadtxt("./hw3q5/Y_test.csv", delimiter=",")
 m = defineModel(hidden_neurons[max_index])
 m.fit(X_train, Y_train, epochs=EPOCHS, batch_size=BATCH_SIZE)
 test_score = m.evaluate(X_test, Y_test)
-print("\n\n%s: %.2f%%" % (m.metrics, test_score[1] * 100))
+print("\n\nOptimal Hidden Neurons: %d" % (hidden_neurons[max_index]))
+print("\n%s: %.2f%%" % (m.metrics, test_score[1] * 100))
 plt.show()
