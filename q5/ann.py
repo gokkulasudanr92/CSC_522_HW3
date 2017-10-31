@@ -4,8 +4,6 @@ import numpy
 import matplotlib.pyplot as plt
 import os
 
-numpy.random.seed(7)
-
 EPOCHS = 5
 BATCH_SIZE = 1
 hidden_neurons = [2, 4, 6, 8, 10]
@@ -15,6 +13,7 @@ current_directory = os.getcwd()
 
 # Define a model
 def defineModel(hidden_neurons):
+    numpy.random.seed(7)
     model = Sequential()
     # First input layer & Second hidden layer with hidden neurons and relu activation
     model.add(Dense(hidden_neurons, input_shape=(64, ), activation="relu"))
